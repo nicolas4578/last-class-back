@@ -3,16 +3,13 @@ import {BrowserRouter as Router, Routes,Route} from 'react-router-dom'
 // import Card from './componentes/Card';
 import ComentarioLista from './componentes/ComentarioLista';
 import Header from './componentes/Header';
-import comentarios from './data/Comentarios';
 import ComentarioStats from './componentes/ComentarioStats';
 import ComentarioForm from './componentes/ComentarioForm';
 import About from './paginas/About';
 import AboutConLink from './componentes/AboutConLink';
 import VolverHome from './componentes/VolverHome';
-import { ComentariosProvider } from './contexto/comentariosContexto';
+import ComentariosContexto, { ComentariosProvider } from './contexto/comentariosContexto';
 function App() {
-
-    const [comments, setCommments] = useState(comentarios)
 
     const titulo="App de comentarios"
     const Autor ="Miguel Ortiz y Nicolas Fandiño"
@@ -21,9 +18,6 @@ function App() {
     const loading = false;
     if(loading === true) return ( <h1> Cargando comentarios...</h1> )
 
-    const addComentario=(newComentario)=>{
-      setCommments( preventComments=>[ ...preventComments,newComentario ])
-    }
 
   return (
           <ComentariosProvider>
@@ -34,8 +28,8 @@ function App() {
                 <Routes>
                   <Route exact path='/' element={
                     <>
-                      <ComentarioForm handleAdd={addComentario}/>
                       <ComentarioStats/>
+                      <ComentarioForm/>
                       <ComentarioLista/>
                       <AboutConLink/>
                     </>}>

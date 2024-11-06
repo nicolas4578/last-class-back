@@ -1,30 +1,23 @@
-import {React, useState} from 'react'
-import Card from './Card'
+import { React, useContext } from 'react';
 import { FaTimes } from "react-icons/fa";
-export const ComentarioItem = ({comentario}) => {
+import ComentariosContexto from '../contexto/comentariosContexto';
+import Card from './Card';
 
-    //manejo del estado de un comentario:
-    //comentario y calificacion como atributo
-    //mediante el uso de Estados
-    const [comment, setComentario] = useState(comentario.comentario)
-    const [rating, setRating] = useState(comentario.calificacion)
-    const[identificacion,setIde]=useState(comentario.id)
+export const ComentarioItem = ({ comentario }) => {
+  const { borrarItem } = useContext(ComentariosContexto); // Obtener borrarItem del contexto
 
+  // Función para manejar la eliminación
+  const handleEliminar = () => {
+    borrarItem(comentario.id); // Llamar a borrarItem con el id del comentario
+  };
 
   return (
     <Card reverse={false}>
-      <div className='num-display'>{rating}</div>
-      <div className='text-display'>{ comment }</div>
-      <button className='close'>
+      <div className='num-display'>{comentario.calificacion}</div>
+      <div className='text-display'>{comentario.comentario}</div>
+      <button className='close' onClick={handleEliminar}>
         <FaTimes color='purple' />
       </button>
     </Card>
-    // <div className="card">
-    //     <div className='num-display'>{rating}</div>
-    //     <div className='text-display'>{ comment }</div>
-    //     <button onClick={cambiarRating}>
-    //         Cambiar Calificacion
-    //     </button>
-    // </div>
-  )
-}
+  );
+};
